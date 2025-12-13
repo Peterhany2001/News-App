@@ -1,29 +1,28 @@
-class SourcesResponse {
-  SourcesResponse({this.status, this.sources, String? message, String? code});
+class SourcesResponseDM {
+  String? status;
+  List<SourceDM>? sources;
+  String? message;
+  String? code;
 
-  SourcesResponse.fromJson(dynamic json) {
+  SourcesResponseDM({this.status, this.sources, this.message, this.code});
+
+  SourcesResponseDM.fromJson(dynamic json) {
     status = json['status'];
+    message = json['message'];
+    code = json['code'];
     if (json['sources'] != null) {
       sources = [];
       json['sources'].forEach((v) {
-        sources?.add(Source.fromJson(v));
+        sources?.add(SourceDM.fromJson(v));
       });
     }
   }
-  String? status;
-  List<Source>? sources;
-  String? message;
-  String? code;
-  SourcesResponse copyWith({String? status, List<Source>? sources}) =>
-      SourcesResponse(
-        status: status ?? this.status,
-        sources: sources ?? this.sources,
-        message: message ?? message,
-        code: code ?? code,
-      );
+
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['status'] = status;
+    map['message'] = message;
+    map['code'] = code;
     if (sources != null) {
       map['sources'] = sources?.map((v) => v.toJson()).toList();
     }
@@ -31,8 +30,8 @@ class SourcesResponse {
   }
 }
 
-class Source {
-  Source({
+class SourceDM {
+  SourceDM({
     this.id,
     this.name,
     this.description,
@@ -42,7 +41,7 @@ class Source {
     this.country,
   });
 
-  Source.fromJson(dynamic json) {
+  SourceDM.fromJson(dynamic json) {
     id = json['id'];
     name = json['name'];
     description = json['description'];
@@ -58,7 +57,7 @@ class Source {
   String? category;
   String? language;
   String? country;
-  Source copyWith({
+  SourceDM copyWith({
     String? id,
     String? name,
     String? description,
@@ -66,7 +65,7 @@ class Source {
     String? category,
     String? language,
     String? country,
-  }) => Source(
+  }) => SourceDM(
     id: id ?? this.id,
     name: name ?? this.name,
     description: description ?? this.description,
